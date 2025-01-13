@@ -43,7 +43,14 @@ dependencies:
   hive: ^2.2.3
   shared_preferences: ^2.3.4
 
-# flutter pub run flutter_launcher_icons:main
+# dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/soraimo_logo.png
+  android: true
+  ios: true
+
+# dart run flutter_launcher_icons:main
 flutter_launcher_icons:
   android: true
   ios: true
