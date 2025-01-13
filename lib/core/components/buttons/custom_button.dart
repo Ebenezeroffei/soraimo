@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:soraimo/core/extensions/padding_extention.dart';
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onPressedHandler;
+  final VoidCallback? onPressedHandler;
   final Widget child;
 
   const CustomButton(
       {super.key, required this.onPressedHandler, required this.child});
 
   factory CustomButton.text({
-    required VoidCallback onPressedHandler,
+    VoidCallback? onPressedHandler,
     required String text,
   }) {
     final textWidget = Text(text);
