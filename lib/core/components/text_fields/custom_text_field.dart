@@ -12,6 +12,7 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool isPassword;
   final String? helperText;
+  final TextInputType? keyboardType;
 
   const CustomTextField({
     super.key,
@@ -19,11 +20,12 @@ class CustomTextField extends StatefulWidget {
     required this.label,
     this.inputFormatters,
     this.helperText,
+    this.keyboardType,
     bool? isPassword,
     bool? obscureText,
     bool? addPadding,
     this.validator,
-    required this.onChangeHandler,
+    this.onChangeHandler,
   })  : obscureText = obscureText ?? false,
         isPassword = isPassword ?? false;
 
@@ -81,6 +83,36 @@ class CustomTextField extends StatefulWidget {
       onChangeHandler: onChangeHandler,
     );
   }
+
+  factory CustomTextField.number({
+    required TextEditingController controller,
+    required String label,
+    String? helperText,
+    Function(String)? onChangeHandler,
+    String? Function(String?)? validator,
+    String? errorMessage,
+  }) {
+    defaultValidator(String? value) {
+      if (value != null) {
+        return value.isNumber() ? null : errorMessage;
+      }
+      return errorMessage;
+    }
+
+    final defaultInputFormatter = [
+      FilteringTextInputFormatter.allow(RegExp(r'\d'))
+    ];
+
+    return CustomTextField(
+      controller: controller,
+      label: label,
+      keyboardType: TextInputType.number,
+      helperText: helperText,
+      validator: validator ?? defaultValidator,
+      onChangeHandler: onChangeHandler,
+      inputFormatters: defaultInputFormatter,
+    );
+  }
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
@@ -121,6 +153,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: obscureTextState,
       obscuringCharacter: "*",
       onChanged: widget.onChangeHandler,
+      keyboardType: widget.keyboardType,
       style: TextStyle(
         color: Colors.grey.shade800,
         fontWeight: FontWeight.w300,

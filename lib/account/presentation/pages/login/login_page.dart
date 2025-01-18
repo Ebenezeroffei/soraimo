@@ -28,68 +28,66 @@ class LoginPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: Form(
-                key: _key,
-                child: ListView(
-                  children: [
-                    Text(
-                      "Log in to your soraimo account",
-                      textAlign: TextAlign.center,
-                      style: textTheme.titleLarge,
+      body: Column(
+        children: [
+          Expanded(
+            child: Form(
+              key: _key,
+              child: ListView(
+                children: [
+                  Text(
+                    "Log in to your soraimo account",
+                    textAlign: TextAlign.center,
+                    style: textTheme.titleLarge,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextField.email(
+                    controller: _email,
+                    label: "Please enter your email address.",
+                    onChangeHandler: (value) =>
+                        AccountUtils.loginPageOnChangeHandlerCheckFormValidity(
+                      _email.text,
+                      _password.text,
+                      _isValid,
                     ),
-                    SizedBox(
-                      height: 20,
+                  ),
+                  CustomTextField.password(
+                    controller: _password,
+                    onChangeHandler: (value) =>
+                        AccountUtils.loginPageOnChangeHandlerCheckFormValidity(
+                      _email.text,
+                      _password.text,
+                      _isValid,
                     ),
-                    CustomTextField.email(
-                      controller: _email,
-                      label: "Please enter your email address.",
-                      onChangeHandler: (value) => AccountUtils
-                          .loginPageOnChangeHandlerCheckFormValidity(
-                        _email.text,
-                        _password.text,
-                        _isValid,
-                      ),
-                    ),
-                    CustomTextField.password(
-                      controller: _password,
-                      onChangeHandler: (value) => AccountUtils
-                          .loginPageOnChangeHandlerCheckFormValidity(
-                        _email.text,
-                        _password.text,
-                        _isValid,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    ForgotPassword(),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ForgotPassword(),
+                ],
               ),
             ),
-            ValueListenableBuilder(
-              valueListenable: _isValid,
-              builder: (_, value, __) => value
-                  ? CustomButton.text(
-                      onPressedHandler: () => AccountUtils.login(
-                        _key,
-                        _email,
-                        _password,
-                      ),
-                      text: "Login",
-                    )
-                  : CustomButton.text(
-                      text: "Login",
+          ),
+          ValueListenableBuilder(
+            valueListenable: _isValid,
+            builder: (_, value, __) => value
+                ? CustomButton.text(
+                    onPressedHandler: () => AccountUtils.login(
+                      _key,
+                      _email,
+                      _password,
                     ),
-            ),
-            DontHaveAnAccount(),
-          ],
-        ).pad(10),
-      ),
+                    text: "Login",
+                  )
+                : CustomButton.text(
+                    text: "Login",
+                  ),
+          ),
+          DontHaveAnAccount(),
+        ],
+      ).pad(10),
     );
   }
 }

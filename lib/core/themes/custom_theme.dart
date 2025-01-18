@@ -37,10 +37,16 @@ class CustomTheme {
         minimumSize: Size(double.infinity, 46)),
   );
 
+  static final appBarTheme = AppBarTheme(
+    scrolledUnderElevation: 0,
+    backgroundColor: Colors.transparent,
+  );
+
   static final lightTheme = ThemeData(
       useMaterial3: true,
       textTheme: customTextTheme,
       elevatedButtonTheme: elevatedButtonTheme,
+      appBarTheme: appBarTheme,
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: const Color.fromRGBO(0, 148, 230, 1),
@@ -94,6 +100,7 @@ class CustomTheme {
       useMaterial3: true,
       textTheme: customTextTheme,
       elevatedButtonTheme: elevatedButtonTheme,
+      appBarTheme: appBarTheme,
       colorScheme: ColorScheme(
         brightness: Brightness.dark,
         primary: const Color.fromRGBO(0, 148, 230, 1),

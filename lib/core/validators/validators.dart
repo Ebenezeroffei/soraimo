@@ -5,4 +5,6 @@ class Validators {
       RegExp(r'^[a-zA-Z][a-zA-Z\d]+@[a-z]+\.[a-z]{3,}(\.[a-z]{2,})?$');
 
   static final password = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,16}$');
+
+  static final number = RegExp(r'\d+');
 }

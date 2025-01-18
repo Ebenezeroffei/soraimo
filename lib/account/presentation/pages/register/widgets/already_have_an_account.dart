@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:soraimo/core/extensions/extensions.dart';
 
-class DontHaveAnAccount extends StatelessWidget {
-  const DontHaveAnAccount({super.key});
+class AlreadyHaveAnAccount extends StatelessWidget {
+  const AlreadyHaveAnAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +12,16 @@ class DontHaveAnAccount extends StatelessWidget {
       textAlign: TextAlign.center,
       text: TextSpan(
         style: theme.textTheme.bodyMedium,
-        text: "Don't have a soraimo account yet? ",
+        text: "Already have soraimo account? ",
         children: [
           TextSpan(
             recognizer: TapGestureRecognizer()
-              ..onTap = () => Navigator.pushNamed(context, '/auth/register'),
-            text: "Register ",
+              ..onTap = () => Navigator.pushNamed(context, '/auth'),
+            text: "Login here",
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.primary,
             ),
           ),
-          TextSpan(text: "now!"),
         ],
       ),
     ).padB(50);
