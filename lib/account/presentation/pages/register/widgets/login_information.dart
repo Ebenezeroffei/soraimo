@@ -8,14 +8,16 @@ class LoginInformation extends StatelessWidget {
   final TextEditingController verificationCode;
   final TextEditingController password1;
   final TextEditingController password2;
+  final bool showSectionTitle;
 
-  const LoginInformation({
-    super.key,
-    required this.email,
-    required this.verificationCode,
-    required this.password1,
-    required this.password2,
-  });
+  const LoginInformation(
+      {super.key,
+      required this.email,
+      required this.verificationCode,
+      required this.password1,
+      required this.password2,
+      bool? showSectionTitle})
+      : showSectionTitle = showSectionTitle ?? true;
 
   String? _password2Validator(String? value) {
     if (value != null && password1.text == value) {
@@ -37,13 +39,15 @@ class LoginInformation extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          "Login information",
-          textAlign: TextAlign.left,
-        ).toLeft(),
+        if (showSectionTitle)
+          SizedBox(
+            height: 20,
+          ),
+        if (showSectionTitle)
+          Text(
+            "Login information",
+            textAlign: TextAlign.left,
+          ).toLeft(),
         CustomTextField.email(
           controller: email,
           label: 'Please enter your email',

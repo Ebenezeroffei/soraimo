@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       darkTheme: CustomTheme.darkTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: RouteGenerator.generateRoutes,
-      initialRoute: '/auth/register',
+      initialRoute: '/auth/forgot-password',
     );
   }
 }
