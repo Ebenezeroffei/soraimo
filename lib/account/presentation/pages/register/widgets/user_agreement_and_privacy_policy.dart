@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:soraimo/core/extensions/extensions.dart';
 
 class UserAgreementAndPrivacyPolicy extends StatelessWidget {
-  final ValueNotifier<bool> accepted;
+  final ValueNotifier<bool> acceptAgreement;
 
-  const UserAgreementAndPrivacyPolicy({super.key, required this.accepted});
+  const UserAgreementAndPrivacyPolicy(
+      {super.key, required this.acceptAgreement});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +16,12 @@ class UserAgreementAndPrivacyPolicy extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         ValueListenableBuilder(
-          valueListenable: accepted,
+          valueListenable: acceptAgreement,
           builder: (_, value, __) => Radio.adaptive(
             value: true,
             groupValue: value,
-            onChanged: (value) => accepted.value = !accepted.value,
+            onChanged: (value) =>
+                acceptAgreement.value = !acceptAgreement.value,
             toggleable: true,
             visualDensity: VisualDensity(
               horizontal: -3.5,

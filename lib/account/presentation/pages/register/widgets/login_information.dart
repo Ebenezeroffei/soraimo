@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soraimo/core/components/text_fields/custom_text_field.dart';
 import 'package:soraimo/core/extensions/alignment_extension.dart';
+import 'package:soraimo/core/extensions/extensions.dart';
 
 class LoginInformation extends StatelessWidget {
   final TextEditingController email;
@@ -16,9 +17,23 @@ class LoginInformation extends StatelessWidget {
     required this.password2,
   });
 
+  String? _password2Validator(String? value) {
+    if (value != null && password1.text == value) {
+      return null;
+    }
+    return "Both passwords should be the same";
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    String? verificationCodeValidator(String? value) {
+      if (value != null && value.length == 6) {
+        return null;
+      }
+      return 'Code should be 6 digits long';
+    }
 
     return Column(
       children: [
@@ -35,11 +50,14 @@ class LoginInformation extends StatelessWidget {
         ),
         Row(
           spacing: 10,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: CustomTextField.number(
                 controller: verificationCode,
                 label: 'Please enter your verification code',
+                validator: verificationCodeValidator,
+                helperText: "Code should be six digits long.",
               ),
             ),
             TextButton(
@@ -57,7 +75,7 @@ class LoginInformation extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(color: Colors.white),
               ),
-            ),
+            ).padT(7),
           ],
         ),
         CustomTextField.password(
@@ -67,8 +85,9 @@ class LoginInformation extends StatelessWidget {
               'The password must be 6 - 16 characters long and include both numbers and letters,',
         ),
         CustomTextField.password(
-          controller: password1,
+          controller: password2,
           label: 'Please confirm the password again',
+          validator: _password2Validator,
         ),
       ],
     );

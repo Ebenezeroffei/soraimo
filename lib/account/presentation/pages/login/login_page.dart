@@ -48,18 +48,18 @@ class LoginPage extends StatelessWidget {
                     label: "Please enter your email address.",
                     onChangeHandler: (value) =>
                         AccountUtils.loginPageOnChangeHandlerCheckFormValidity(
-                      _email.text,
-                      _password.text,
-                      _isValid,
+                      email: _email.text,
+                      password: _password.text,
+                      isValid: _isValid,
                     ),
                   ),
                   CustomTextField.password(
                     controller: _password,
                     onChangeHandler: (value) =>
                         AccountUtils.loginPageOnChangeHandlerCheckFormValidity(
-                      _email.text,
-                      _password.text,
-                      _isValid,
+                      email: _email.text,
+                      password: _password.text,
+                      isValid: _isValid,
                     ),
                   ),
                   SizedBox(
@@ -75,9 +75,9 @@ class LoginPage extends StatelessWidget {
             builder: (_, value, __) => value
                 ? CustomButton.text(
                     onPressedHandler: () => AccountUtils.login(
-                      _key,
-                      _email,
-                      _password,
+                      key: _key,
+                      email: _email,
+                      password: _password,
                     ),
                     text: "Login",
                   )

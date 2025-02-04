@@ -178,7 +178,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         helperText: widget.helperText,
         helperStyle: TextStyle(
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w300,
         ),
         helperMaxLines: 3,
         hintText: widget.label,
