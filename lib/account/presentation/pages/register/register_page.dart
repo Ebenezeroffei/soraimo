@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:soraimo/account/presentation/pages/register/widgets/already_have_an_account.dart';
 import 'package:soraimo/account/presentation/pages/register/widgets/login_information.dart';
@@ -80,6 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final otp = Random().nextInt(555555) + 444444;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -118,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     verificationCode: _verificationCode,
                     password1: _password1,
                     password2: _password2,
+                    otp: otp,
                   ),
                 ],
               ),
@@ -136,8 +140,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         firstName: _firstName.text,
                         lastName: _lastName.text,
                         email: _email.text,
+                        otp: otp.toString(),
                         verificationCode: _verificationCode.text,
                         password: _password1.text,
+                        context: context,
                       )
                   : null,
             ),

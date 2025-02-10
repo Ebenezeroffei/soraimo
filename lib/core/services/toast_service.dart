@@ -20,6 +20,14 @@ class ToastService {
     );
   }
 
+  static Future<void> warning(String text) async {
+    await show(
+      text: text,
+      backgroundColor: Colors.yellow.shade800,
+      textColor: Colors.black,
+    );
+  }
+
   static Future<void> show({
     required String text,
     Color? backgroundColor = Colors.blueGrey,

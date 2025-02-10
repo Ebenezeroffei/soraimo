@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:soraimo/account/data/datasources/user_local_datasource.dart';
 import 'package:soraimo/account/data/repositories/user_repository_impl.dart';
 import 'package:soraimo/account/domains/usecases/login.dart';
+import 'package:soraimo/account/domains/usecases/register.dart';
 import 'package:soraimo/core/extensions/extensions.dart';
 import 'package:soraimo/core/services/toast_service.dart';
 import 'package:soraimo/core/validators/validators.dart';
@@ -21,6 +22,7 @@ class AccountUtils {
     required GlobalKey<FormState> key,
     required String email,
     required String password,
+    required BuildContext context,
   }) async {
     if (key.currentState!.validate()) {
       final localDataSource = UserLocalDataSourceImpl();
@@ -32,6 +34,7 @@ class AccountUtils {
       );
       res.fold((l) => ToastService.error(l.message), (user) {
         ToastService.success("Login successful");
+        // Navigator.pushNamed(context, '/');
       });
     }
   }
@@ -64,12 +67,26 @@ class AccountUtils {
     required String lastName,
     required String email,
     required String verificationCode,
+    required String otp,
     required String password,
-  }) {
-    if (key.currentState!.validate()) {
-      print("Nice");
-    } else {
-      print("Not nice");
+    required BuildContext context,
+  }) async {
+    if (otp != verificationCode) {
+      ToastService.warning("Invalid verification code.");
+    } else if (key.currentState!.validate()) {
+      final localDataSource = UserLocalDataSourceImpl();
+      final repository = UserRepositoryImpl(localDataSource);
+      final register = Register(repository);
+      final res = await register.execute(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      );
+      res.fold((l) => ToastService.error(l.message), (_) {
+        ToastService.success("Registration successful.");
+        Navigator.pushNamed(context, '/auth');
+      });
     }
   }
 
@@ -91,10 +108,15 @@ class AccountUtils {
     required GlobalKey<FormState> key,
     required String email,
     required String verificationCode,
+    required String otp,
     required String password,
+    required BuildContext context,
   }) {
-    if (key.currentState!.validate()) {
+    if (otp != verificationCode) {
+      ToastService.warning("Invalid verification code.");
+    } else if (key.currentState!.validate()) {
       print("Nice");
+      // Navigator.pushNamed(context, '/auth');
     } else {
       print("Not nice");
     }

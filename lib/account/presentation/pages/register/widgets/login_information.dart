@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soraimo/core/components/text_fields/custom_text_field.dart';
 import 'package:soraimo/core/extensions/alignment_extension.dart';
 import 'package:soraimo/core/extensions/extensions.dart';
+import 'package:soraimo/core/services/notification_service.dart';
 
 class LoginInformation extends StatelessWidget {
   final TextEditingController email;
@@ -9,15 +10,17 @@ class LoginInformation extends StatelessWidget {
   final TextEditingController password1;
   final TextEditingController password2;
   final bool showSectionTitle;
+  final int otp;
 
-  const LoginInformation(
-      {super.key,
-      required this.email,
-      required this.verificationCode,
-      required this.password1,
-      required this.password2,
-      bool? showSectionTitle})
-      : showSectionTitle = showSectionTitle ?? true;
+  const LoginInformation({
+    super.key,
+    required this.email,
+    required this.verificationCode,
+    required this.password1,
+    required this.password2,
+    bool? showSectionTitle,
+    required this.otp,
+  }) : showSectionTitle = showSectionTitle ?? true;
 
   String? _password2Validator(String? value) {
     if (value != null && password1.text == value) {
@@ -65,7 +68,12 @@ class LoginInformation extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async =>
+                  await NotificationService().showNotification(
+                title: "One Time Password",
+                body: otp.toString(),
+                id: 200,
+              ),
               style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
@@ -77,7 +85,9 @@ class LoginInformation extends StatelessWidget {
               child: Text(
                 "Get \n Verificat...",
                 textAlign: TextAlign.center,
-                style: theme.textTheme.bodySmall?.copyWith(color: Colors.white),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: Colors.white,
+                ),
               ),
             ).padT(7),
           ],

@@ -78,6 +78,7 @@ class LoginPage extends StatelessWidget {
                       key: _key,
                       email: _email.text,
                       password: _password.text,
+                      context: context,
                     ),
                     text: "Login",
                   )

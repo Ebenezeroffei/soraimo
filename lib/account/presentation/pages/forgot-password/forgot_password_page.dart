@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:soraimo/account/presentation/pages/register/widgets/login_information.dart';
 import 'package:soraimo/account/presentation/utils/account_utils.dart';
@@ -51,6 +53,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final otp = Random().nextInt(555555) + 444444;
+
     return Scaffold(
       appBar: AppBar(
         leading: Icon(
@@ -76,6 +80,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     password1: _password1,
                     password2: _password2,
                     showSectionTitle: false,
+                    otp: otp,
                   ),
                 ],
               ),
@@ -88,8 +93,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ? () => AccountUtils.forgotPassword(
                                 key: _formKey,
                                 email: _email.text,
+                                otp: otp.toString(),
                                 verificationCode: _verificationCode.text,
                                 password: _password1.text,
+                                context: context,
                               )
                           : null,
                     )),

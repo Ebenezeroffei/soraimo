@@ -11,8 +11,10 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this.localDataSource);
 
   @override
-  Future<Either<Failure, User>> login(
-      {required String email, required String password}) async {
+  Future<Either<Failure, User>> login({
+    required String email,
+    required String password,
+  }) async {
     try {
       final user =
           await localDataSource.login(email: email, password: password);
@@ -27,9 +29,18 @@ class UserRepositoryImpl implements UserRepository {
       {required String firstName,
       required String lastName,
       required String email,
-      required String password}) {
-    // TODO: implement register
-    throw UnimplementedError();
+      required String password}) async {
+    try {
+      final user = await localDataSource.register(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      );
+      return Right(user);
+    } on CacheException catch (e) {
+      return Left(Failure(message: e.message));
+    }
   }
 
   @override

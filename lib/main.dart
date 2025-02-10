@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: CustomTheme.darkTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: RouteGenerator.generateRoutes,
-      initialRoute: '/auth',
+      initialRoute: '/auth/register',
     );
   }
 }
