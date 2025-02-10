@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:soraimo/core/routes/route.dart';
+import 'package:soraimo/core/services/notification_service.dart';
 import 'package:soraimo/core/themes/custom_theme.dart';
 
 void main() {
@@ -13,8 +14,19 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    NotificationService().init();
+  }
 
   // This widget is the root of your application.
   @override
