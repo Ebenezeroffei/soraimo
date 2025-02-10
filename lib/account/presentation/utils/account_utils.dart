@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:soraimo/account/data/datasources/user_local_datasource.dart';
+import 'package:soraimo/account/data/repositories/user_repository_impl.dart';
+import 'package:soraimo/account/domains/usecases/login.dart';
+import 'package:soraimo/core/extensions/extensions.dart';
+import 'package:soraimo/core/services/toast_service.dart';
 import 'package:soraimo/core/validators/validators.dart';
 
 class AccountUtils {
@@ -13,13 +19,20 @@ class AccountUtils {
 
   static void login({
     required GlobalKey<FormState> key,
-    required TextEditingController email,
-    required TextEditingController password,
-  }) {
+    required String email,
+    required String password,
+  }) async {
     if (key.currentState!.validate()) {
-      print("Nice");
-    } else {
-      print("Not nice");
+      final localDataSource = UserLocalDataSourceImpl();
+      final repository = UserRepositoryImpl(localDataSource);
+      final login = Login(repository);
+      final res = await login.execute(
+        email: email,
+        password: password,
+      );
+      res.fold((l) => ToastService.error(l.message), (user) {
+        ToastService.success("Login successful");
+      });
     }
   }
 

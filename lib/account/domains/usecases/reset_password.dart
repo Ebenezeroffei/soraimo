@@ -3,17 +3,17 @@ import 'package:soraimo/account/domains/entities/user.dart';
 import 'package:soraimo/account/domains/repositories/user_repository.dart';
 import 'package:soraimo/core/errors/failure.dart';
 
-class Login {
+class ResetPassword {
   final UserRepository repository;
 
-  Login(this.repository);
+  ResetPassword(this.repository);
 
   Future<Either<Failure, User>> execute({
     required String email,
-    required String password,
+    required String newPassword,
   }) async =>
-      await repository.login(
+      await repository.resetPassword(
         email: email,
-        password: password,
+        newPassword: newPassword,
       );
 }

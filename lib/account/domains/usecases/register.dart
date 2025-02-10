@@ -3,16 +3,20 @@ import 'package:soraimo/account/domains/entities/user.dart';
 import 'package:soraimo/account/domains/repositories/user_repository.dart';
 import 'package:soraimo/core/errors/failure.dart';
 
-class Login {
+class Register {
   final UserRepository repository;
 
-  Login(this.repository);
+  Register(this.repository);
 
   Future<Either<Failure, User>> execute({
+    required String firstName,
+    required String lastName,
     required String email,
     required String password,
   }) async =>
-      await repository.login(
+      await repository.register(
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
       );

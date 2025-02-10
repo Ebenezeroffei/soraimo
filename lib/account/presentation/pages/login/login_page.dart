@@ -76,8 +76,8 @@ class LoginPage extends StatelessWidget {
                 ? CustomButton.text(
                     onPressedHandler: () => AccountUtils.login(
                       key: _key,
-                      email: _email,
-                      password: _password,
+                      email: _email.text,
+                      password: _password.text,
                     ),
                     text: "Login",
                   )

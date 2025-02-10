@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:soraimo/core/routes/route.dart';
+import 'package:soraimo/core/services/hive_service.dart';
 import 'package:soraimo/core/services/notification_service.dart';
 import 'package:soraimo/core/themes/custom_theme.dart';
 
-void main() {
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // await SystemChrome.setPreferredOrientations(
   //   [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   // );
+  HiveService().init();
   runApp(const MyApp());
 }
 
@@ -37,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: CustomTheme.darkTheme,
       themeMode: ThemeMode.light,
       onGenerateRoute: RouteGenerator.generateRoutes,
-      initialRoute: '/auth/forgot-password',
+      initialRoute: '/auth',
     );
   }
 }
