@@ -15,7 +15,11 @@ class ForgotPassword extends StatelessWidget {
         style: theme.textTheme.titleSmall?.copyWith(
           color: theme.colorScheme.primary,
         ),
-        recognizer: TapGestureRecognizer()..onTap = () => print("Nice"),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () => Navigator.pushNamed(
+                context,
+                '/auth/forgot-password',
+              ),
       ),
     );
   }

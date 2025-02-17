@@ -28,13 +28,24 @@ class CustomTheme {
     ),
   );
 
-  static final elevatedButtonTheme = ElevatedButtonThemeData(
+  static final elevatedButtonLightTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        foregroundColor: Colors.white,
-        textStyle: customTextTheme.bodyMedium,
-        minimumSize: Size(double.infinity, 46)),
+      backgroundColor: Colors.black,
+      elevation: 0,
+      foregroundColor: Colors.white,
+      textStyle: customTextTheme.bodyMedium,
+      minimumSize: Size(double.infinity, 46),
+    ),
+  );
+
+  static final elevatedButtonDarkTheme = ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      foregroundColor: Colors.black,
+      textStyle: customTextTheme.bodyMedium,
+      minimumSize: Size(double.infinity, 46),
+    ),
   );
 
   static final appBarTheme = AppBarTheme(
@@ -45,7 +56,7 @@ class CustomTheme {
   static final lightTheme = ThemeData(
       useMaterial3: true,
       textTheme: customTextTheme,
-      elevatedButtonTheme: elevatedButtonTheme,
+      elevatedButtonTheme: elevatedButtonLightTheme,
       appBarTheme: appBarTheme,
       colorScheme: ColorScheme(
         brightness: Brightness.light,
@@ -99,7 +110,7 @@ class CustomTheme {
   static final darkTheme = ThemeData(
       useMaterial3: true,
       textTheme: customTextTheme,
-      elevatedButtonTheme: elevatedButtonTheme,
+      elevatedButtonTheme: elevatedButtonDarkTheme,
       appBarTheme: appBarTheme,
       colorScheme: ColorScheme(
         brightness: Brightness.dark,

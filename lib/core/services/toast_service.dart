@@ -36,7 +36,7 @@ class ToastService {
     await Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+      gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 1,
       backgroundColor: backgroundColor,
       textColor: textColor,

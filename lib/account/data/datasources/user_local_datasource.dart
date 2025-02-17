@@ -25,7 +25,7 @@ abstract class UserLocalDatasource {
 class UserLocalDataSourceImpl implements UserLocalDatasource {
   @override
   Future<User> login({required String email, required String password}) async {
-    final userBox = await Hive.openBox('userBox');
+    final userBox = Hive.box<User>('userBox');
     final users = userBox.values.toList();
     for (User user in users) {
       if (user.email == email && user.password == password.hash()) return user;
@@ -40,7 +40,7 @@ class UserLocalDataSourceImpl implements UserLocalDatasource {
       required String lastName,
       required String email,
       required String password}) async {
-    final userBox = await Hive.openBox('userBox');
+    final userBox = Hive.box<User>('userBox');
     final users = userBox.values.toList();
     for (final User ele in users) {
       if (ele.email == email) {
@@ -58,9 +58,26 @@ class UserLocalDataSourceImpl implements UserLocalDatasource {
   }
 
   @override
-  Future<User> resetPassword(
-      {required String email, required String newPassword}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<User> resetPassword({
+    required String email,
+    required String newPassword,
+  }) async {
+    final userBox = Hive.box<User>('userBox');
+    final users = userBox.values.toList();
+    for (User user in users) {
+      if (user.email == email) {
+        final updatedUser = User(
+          email: email,
+          password: newPassword.hash(),
+          firstName: user.firstName,
+          lastName: user.lastName,
+          id: user.id,
+        );
+        userBox.put(user.id, updatedUser);
+        return updatedUser;
+      }
+    }
+
+    throw CacheException(message: "Invalid email.");
   }
 }

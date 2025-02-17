@@ -44,9 +44,18 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, User>> resetPassword(
-      {required String email, required String newPassword}) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<Either<Failure, User>> resetPassword({
+    required String email,
+    required String newPassword,
+  }) async {
+    try {
+      final user = await localDataSource.resetPassword(
+        email: email,
+        newPassword: newPassword,
+      );
+      return Right(user);
+    } on CacheException catch (e) {
+      return Left(Failure(message: e.message));
+    }
   }
 }

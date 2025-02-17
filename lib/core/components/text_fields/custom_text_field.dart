@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soraimo/core/constants/theme_ids.dart';
 import 'package:soraimo/core/extensions/extensions.dart';
 import 'package:soraimo/core/validators/validators.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -144,9 +146,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final themeId = ThemeProvider.themeOf(context).id;
+
     return TextFormField(
       controller: widget.controller,
-      cursorColor: Colors.grey.shade800,
+      cursorColor: ThemeIds.customLightTheme == themeId
+          ? Colors.grey.shade800
+          : Colors.grey.shade100,
       inputFormatters: widget.inputFormatters,
       cursorHeight: 18,
       validator: widget.validator,
@@ -155,7 +161,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       onChanged: widget.onChangeHandler,
       keyboardType: widget.keyboardType,
       style: TextStyle(
-        color: Colors.grey.shade800,
+        color: ThemeIds.customLightTheme == themeId
+            ? Colors.grey.shade800
+            : Colors.grey.shade100,
         fontWeight: FontWeight.w300,
         fontSize: 15,
       ),
@@ -164,7 +172,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: toggleTextObscurity,
-                color: Colors.grey.shade800,
+                color: ThemeIds.customLightTheme == themeId
+                    ? Colors.grey.shade800
+                    : Colors.grey.shade100,
                 icon: Icon(
                   obscureTextState
                       ? Icons.visibility_off_rounded
